@@ -19,7 +19,6 @@ const Sidebar = () => {
   const { pathname } = useLocation();
   const [userName, setUserName] = useState("");
   const [mobileOpen, setMobileOpen] = useState(false);
-
   useEffect(() => {
     setUserName(dummyProfileData.firstName + " " + dummyProfileData.lastName);
   }, []);
@@ -28,7 +27,7 @@ const Sidebar = () => {
     setMobileOpen(false);
   }, [pathname]);
 
-  const role = "" || "EMPLOYEE";
+  const role = "ADMIN" || "EMPLOYEE";
   const navItems = [
     { name: "Dashboard", href: "/dashboard", icon: LayoutGridIcon },
     role === "ADMIN"
