@@ -20,11 +20,11 @@ const Employees = () => {
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  }, []);
+  }, [selectedDept]);
 
   useEffect(() => {
     fetchEmployees();
-  }, []);
+  }, [fetchEmployees]);
 
   const filtered = employees?.filter((emp) =>
     `${emp.firstName} ${emp.lastName} ${emp.position}`
@@ -151,13 +151,12 @@ const Employees = () => {
             </div>
             <div className="p-6">
               <EmployeeForm
-              onSuccess={()=>{
-                setShowCreateModal(false);
-                fetchEmployees();
-              }}
-              onCancel={()=>(
-                setShowCreateModal(false)
-                )}/>
+                onSuccess={() => {
+                  setShowCreateModal(false);
+                  fetchEmployees();
+                }}
+                onCancel={() => setShowCreateModal(false)}
+              />
             </div>
           </div>
         </div>
@@ -165,12 +164,16 @@ const Employees = () => {
       {editEmployee && (
         <div
           className="fixed inset-0 z-50 flex items-start
-        justify-center p-4 overflow-y-auto bg-black/40 backdrop-blur-sm" 
-        onClick={()=>(setEditEmployee(null))}
+        justify-center p-4 overflow-y-auto bg-black/40 backdrop-blur-sm"
+          onClick={() => setEditEmployee(null)}
         >
-          <div className="relative bg-white rounded-2xl shadow-2xl w-full
-          max-w-3xl my-8 animation-fade-in" 
-          onClick={(e)=>{e.stopPropagation()}}>
+          <div
+            className="relative bg-white rounded-2xl shadow-2xl w-full
+          max-w-3xl my-8 animation-fade-in"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
             <div className="flex items-center justify-between p-6 pb-0">
               <div>
                 <h2 className="text-lg font-semibold text-slate-900">
@@ -191,14 +194,14 @@ const Employees = () => {
               </button>
             </div>
             <div className="p-6">
-              <EmployeeForm initialData={editEmployee}
-              onSuccess={()=>{
-                setEditEmployee(null);
-                fetchEmployees();
-              }}
-              onCancel={()=>(
-                setEditEmployee(null)
-                )}/>
+              <EmployeeForm
+                initialData={editEmployee}
+                onSuccess={() => {
+                  setEditEmployee(null);
+                  fetchEmployees();
+                }}
+                onCancel={() => setEditEmployee(null)}
+              />
             </div>
           </div>
         </div>
